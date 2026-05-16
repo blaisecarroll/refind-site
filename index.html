@@ -28,8 +28,8 @@
 
         /* ─── NAV ─── */
         .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 max(24px, 5vw); background: rgba(0,0,0,0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid rgba(255,255,255,0.1); transition: background 0.3s; }
-        .nav-logo { font-size: 21px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); text-decoration: none; }
-        .nav-logo span { color: var(--cyan); }
+        .nav-logo { display: flex; align-items: center; text-decoration: none; line-height: 1; }
+        .nav-logo svg { display: block; }
         .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
         .nav-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
         .nav-links a:hover { color: var(--white); }
@@ -242,8 +242,8 @@
         /* ─── FOOTER ─── */
         footer { background: var(--near-black); border-top: 0.5px solid rgba(255,255,255,0.07); padding: 44px max(24px, 5vw); }
         .foot-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
-        .foot-logo { font-size: 19px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); text-decoration: none; }
-        .foot-logo span { color: var(--cyan); }
+        .foot-logo { display: flex; align-items: center; text-decoration: none; line-height: 1; }
+        .foot-logo svg { display: block; }
         .foot-links { display: flex; gap: 24px; flex-wrap: wrap; }
         .foot-links a { font-size: 14px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
         .foot-links a:hover { color: var(--white); }
@@ -259,7 +259,11 @@
 
 <!-- NAV -->
 <nav class="nav" id="nav">
-    <a href="#" class="nav-logo">REFIN<span>D</span></a>
+    <a href="#" class="nav-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 80" height="30" aria-label="Refind">
+            <text x="16" y="58" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="52" font-weight="500" letter-spacing="-1" fill="#ffffff">refind<tspan fill="#378ADD" letter-spacing="0">.</tspan></text>
+        </svg>
+    </a>
     <ul class="nav-links">
         <li><a href="#work">Work</a></li>
         <li><a href="#process">Process</a></li>
@@ -694,7 +698,11 @@
 <!-- FOOTER -->
 <footer>
     <div class="foot-inner">
-        <a href="#" class="foot-logo">REFIN<span>D</span></a>
+        <a href="#" class="foot-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 80" height="28" aria-label="Refind">
+                <text x="16" y="58" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="52" font-weight="500" letter-spacing="-1" fill="#ffffff">refind<tspan fill="#378ADD" letter-spacing="0">.</tspan></text>
+            </svg>
+        </a>
         <div class="foot-links">
             <a href="#work">Work</a>
             <a href="#services">Services</a>
