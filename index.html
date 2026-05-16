@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refind — Websites That Convert</title>
+    <meta name="description" content="Refind builds precision-crafted, conversion-optimized custom websites for ambitious businesses. Three tiers, unlimited revisions, 30-day money-back guarantee.">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --black: #000000;
+            --near-black: #060610;
+            --dark: #1d1d1f;
+            --gray: #6e6e73;
+            --light-gray: #f5f5f7;
+            --off-white: #fbfbfd;
+            --white: #ffffff;
+            --blue: #0062FF;
+            --blue-hover: #1470FF;
+            --cyan: #00C8FF;
+            --cyan-light: #45D8FF;
+            --radius: 18px;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+        /* ─── NAV ─── */
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 max(24px, 5vw); background: rgba(0,0,0,0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid rgba(255,255,255,0.1); transition: background 0.3s; }
+        .nav-logo { font-size: 21px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); text-decoration: none; }
+        .nav-logo span { color: var(--cyan); }
+        .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+        .nav-links a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--white); }
+        .nav-cta { padding: 8px 20px !important; background: var(--blue) !important; color: var(--white) !important; border-radius: 980px !important; font-weight: 500 !important; transition: background 0.2s !important; }
+        .nav-cta:hover { background: var(--blue-hover) !important; }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .nav-toggle span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; }
+        @media (max-width: 760px) { .nav-links { display: none; } .nav-toggle { display: flex; } }
+
+        /* ─── HERO ─── */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px max(24px, 5vw) 100px; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,98,255,0.2) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 85% 75%, rgba(0,200,255,0.07) 0%, transparent 50%), radial-gradient(ellipse 40% 30% at 15% 70%, rgba(99,102,241,0.06) 0%, transparent 50%), var(--black); }
+        .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%); }
+        .hero-content { position: relative; z-index: 1; max-width: 860px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; background: rgba(0,98,255,0.1); border: 1px solid rgba(0,98,255,0.3); border-radius: 980px; font-size: 13px; font-weight: 500; color: var(--cyan); margin-bottom: 36px; letter-spacing: 0.02em; }
+        .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--blue); border-radius: 50%; animation: blink 2s ease-in-out infinite; }
+        @keyframes blink { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(1.6); } }
+        .hero h1 { font-size: clamp(44px, 7.5vw, 96px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.04; margin-bottom: 28px; background: linear-gradient(160deg, #fff 0%, rgba(255,255,255,0.7) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--cyan), var(--cyan-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-sub { font-size: clamp(17px, 2.2vw, 21px); color: rgba(255,255,255,0.5); max-width: 560px; margin: 0 auto 44px; line-height: 1.55; font-weight: 400; }
+        .hero-ctas { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+        .btn-primary { padding: 16px 32px; background: var(--blue); color: var(--white); border-radius: 980px; border: none; font-size: 17px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.25s ease; letter-spacing: -0.01em; }
+        .btn-primary:hover { background: var(--blue-hover); transform: scale(1.03); box-shadow: 0 8px 32px rgba(0,98,255,0.4); }
+        .btn-ghost { padding: 16px 32px; background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); border-radius: 980px; font-size: 17px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.25s ease; }
+        .btn-ghost:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.35); }
+        .scroll-cue { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: rgba(255,255,255,0.25); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; animation: bob 2.5s ease-in-out infinite; }
+        @keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(7px); } }
+
+        /* ─── STATS ─── */
+        .stats-strip { background: var(--near-black); border-top: 0.5px solid rgba(255,255,255,0.07); border-bottom: 0.5px solid rgba(255,255,255,0.07); padding: 52px max(24px, 5vw); }
+        .stats-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; text-align: center; }
+        .stat-num { display: block; font-size: clamp(40px, 5vw, 60px); font-weight: 800; letter-spacing: -0.04em; color: var(--white); line-height: 1; margin-bottom: 8px; }
+        .stat-num span { color: var(--cyan); }
+        .stat-label { font-size: 15px; color: rgba(255,255,255,0.38); }
+        @media (max-width: 580px) { .stats-inner { grid-template-columns: 1fr; gap: 28px; } }
+
+        /* ─── SECTIONS ─── */
+        section { padding: 104px max(24px, 5vw); }
+        .inner { max-width: 1100px; margin: 0 auto; }
+        .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
+        h2.section-title { font-size: clamp(32px, 5vw, 62px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 18px; }
+        p.section-sub { font-size: 19px; line-height: 1.58; color: rgba(255,255,255,0.42); max-width: 540px; margin-bottom: 64px; }
+
+        /* ─── PROBLEM ─── */
+        .problem { background: var(--light-gray); }
+        .problem .eyebrow { color: #0080BB; }
+        .problem h2.section-title { color: var(--dark); }
+        .problem p.section-sub { color: var(--gray); }
+        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+        .problem-card { padding: 32px; background: var(--white); border-radius: var(--radius); border: 1px solid rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s; }
+        .problem-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); }
+        .p-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(0,200,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; }
+        .problem-card h4 { font-size: 18px; font-weight: 600; color: var(--dark); margin-bottom: 10px; }
+        .problem-card p { font-size: 15px; line-height: 1.65; color: var(--gray); }
+
+        /* ─── WHY CUSTOM ─── */
+        .why-custom { background: var(--black); position: relative; overflow: hidden; }
+        .why-custom::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 900px; height: 900px; background: radial-gradient(ellipse, rgba(0,98,255,0.06) 0%, transparent 70%); pointer-events: none; }
+        .custom-impact { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-bottom: 72px; border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius); overflow: hidden; }
+        .impact-stat { padding: 40px 28px; text-align: center; border-right: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.015); transition: background 0.3s; }
+        .impact-stat:hover { background: rgba(255,255,255,0.03); }
+        .impact-stat:last-child { border-right: none; }
+        .impact-num { display: block; font-size: clamp(36px, 4vw, 52px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 10px; background: linear-gradient(135deg, var(--blue), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .impact-label { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+        .custom-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .pillar { padding: 40px 36px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius); position: relative; overflow: hidden; transition: border-color 0.3s, background 0.3s; }
+        .pillar:hover { border-color: rgba(0,98,255,0.3); background: rgba(0,98,255,0.03); }
+        .pillar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--blue), transparent); opacity: 0; transition: opacity 0.3s; }
+        .pillar:hover::before { opacity: 1; }
+        .pillar-num { font-size: 56px; font-weight: 800; letter-spacing: -0.04em; color: rgba(255,255,255,0.04); line-height: 1; margin-bottom: 20px; }
+        .pillar h4 { font-size: 20px; font-weight: 600; color: var(--white); margin-bottom: 12px; }
+        .pillar p { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.65; }
+        @media (max-width: 768px) { .custom-impact { grid-template-columns: 1fr 1fr; } .impact-stat:nth-child(2) { border-right: none; } .impact-stat:nth-child(3), .impact-stat:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.07); } .impact-stat:nth-child(4) { border-right: none; } .custom-pillars { grid-template-columns: 1fr; } }
+
+        /* ─── SERVICES ─── */
+        .services { background: var(--near-black); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius); overflow: hidden; }
+        .svc-card { padding: 40px 32px; background: rgba(255,255,255,0.015); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; transition: background 0.3s; }
+        .svc-card:last-child { border-right: none; }
+        .svc-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--blue), transparent); opacity: 0; transition: opacity 0.3s; }
+        .svc-card:hover { background: rgba(255,255,255,0.035); }
+        .svc-card:hover::after { opacity: 1; }
+        .svc-icon { width: 50px; height: 50px; border-radius: 12px; background: rgba(0,98,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 22px; }
+        .svc-card h4 { font-size: 19px; font-weight: 600; color: var(--white); margin-bottom: 12px; }
+        .svc-card p { font-size: 15px; color: rgba(255,255,255,0.42); line-height: 1.6; }
+
+        /* ─── PROCESS ─── */
+        .process { background: var(--off-white); }
+        .process .eyebrow { color: #0080BB; }
+        .process h2.section-title { color: var(--dark); }
+        .process p.section-sub { color: var(--gray); }
+        .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+        .step { text-align: center; padding: 40px 24px; }
+        .step-num { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--cyan)); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; color: white; margin: 0 auto 24px; box-shadow: 0 8px 28px rgba(0,98,255,0.35); }
+        .step h4 { font-size: 20px; font-weight: 600; color: var(--dark); margin-bottom: 12px; }
+        .step p { font-size: 15px; color: var(--gray); line-height: 1.65; }
+
+        /* ─── PORTFOLIO ─── */
+        .portfolio { background: var(--black); }
+        .portfolio p.section-sub { color: rgba(255,255,255,0.38); }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .port-card { border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(255,255,255,0.07); transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s; }
+        .port-card:hover { transform: translateY(-8px); border-color: rgba(255,255,255,0.15); box-shadow: 0 32px 64px rgba(0,0,0,0.6); }
+        .browser { background: #161616; padding: 14px 14px 0; }
+        .browser-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot:nth-child(1) { background: #FF5F57; } .dot:nth-child(2) { background: #FFBD2E; } .dot:nth-child(3) { background: #28C940; }
+        .url-bar { flex: 1; height: 18px; background: rgba(255,255,255,0.06); border-radius: 4px; margin-left: 8px; }
+        .screen { height: 190px; position: relative; overflow: hidden; }
+        .screen-ecom { background: linear-gradient(135deg, #0d0d1a 0%, #1a1035 50%, #0d0d1a 100%); }
+        .screen-ecom::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 44px; background: rgba(0,0,0,0.5); }
+        .screen-ecom::after { content: ''; position: absolute; top: 60px; left: 50%; transform: translateX(-50%); width: 80%; height: 90px; background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(99,102,241,0.2)); border-radius: 8px; }
+        .screen-law { background: linear-gradient(160deg, #f8f8f8 0%, #ececec 100%); }
+        .screen-law::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 44px; background: #1a2535; }
+        .screen-law::after { content: ''; position: absolute; top: 60px; left: 24px; width: 55%; height: 70px; background: linear-gradient(135deg, rgba(26,37,53,0.12), rgba(26,37,53,0.05)); border-radius: 6px; }
+        .screen-resto { background: linear-gradient(160deg, #060618 0%, #0d0d2e 50%, #060618 100%); }
+        .screen-resto::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(0,200,255,0.2) 0%, transparent 65%); }
+        .screen-resto::after { content: ''; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 60%; height: 28px; border-radius: 980px; background: rgba(0,200,255,0.18); }
+        .port-info { padding: 22px 24px; background: rgba(255,255,255,0.02); }
+        .port-tag { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 6px; }
+        .port-info h4 { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+        .port-info p { font-size: 14px; color: rgba(255,255,255,0.38); }
+
+        /* ─── TESTIMONIALS ─── */
+        .testimonials { background: var(--light-gray); }
+        .testimonials .eyebrow { color: #0080BB; }
+        .testimonials h2.section-title { color: var(--dark); }
+        .testimonials p.section-sub { color: var(--gray); }
+        .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+        .testi-card { padding: 36px; background: var(--white); border-radius: var(--radius); border: 1px solid rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s; }
+        .testi-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+        .stars { color: var(--cyan); font-size: 18px; letter-spacing: 2px; margin-bottom: 18px; }
+        .quote { font-size: 16px; color: var(--dark); line-height: 1.68; margin-bottom: 28px; font-style: italic; }
+        .author { display: flex; align-items: center; gap: 14px; }
+        .avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 700; color: white; flex-shrink: 0; }
+        .author-name { font-size: 15px; font-weight: 600; color: var(--dark); margin-bottom: 2px; }
+        .author-role { font-size: 13px; color: var(--gray); }
+
+        /* ─── COMPARE ─── */
+        .compare { background: var(--off-white); }
+        .compare .eyebrow { color: #0080BB; }
+        .compare h2.section-title { color: var(--dark); }
+        .compare p.section-sub { color: var(--gray); }
+        .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 24px rgba(0,0,0,0.07); }
+        .compare-table th { padding: 18px 24px; text-align: center; font-size: 15px; font-weight: 700; background: var(--white); border-bottom: 2px solid rgba(0,0,0,0.06); }
+        .compare-table th:first-child { text-align: left; }
+        .compare-table th.highlight { background: var(--blue); color: white; }
+        .compare-table td { padding: 16px 24px; text-align: center; background: var(--white); font-size: 15px; color: var(--dark); border-bottom: 1px solid rgba(0,0,0,0.04); }
+        .compare-table td:first-child { text-align: left; font-weight: 500; color: var(--gray); }
+        .compare-table td.highlight { background: rgba(0,98,255,0.04); font-weight: 600; color: var(--blue); }
+        .compare-table tr:last-child td { border-bottom: none; }
+        .tick { color: #28C940; font-size: 18px; }
+        .cross { color: #FF5F57; font-size: 18px; }
+        .maybe { color: #FFBD2E; font-size: 16px; }
+
+        /* ─── PRICING ─── */
+        .pricing { background: var(--near-black); }
+        .pricing-intro { text-align: center; margin-bottom: 64px; }
+        .pricing-intro p.section-sub { margin: 0 auto 0; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; margin-bottom: 40px; }
+        .pricing-card { padding: 44px 36px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); position: relative; transition: border-color 0.3s, transform 0.3s; }
+        .pricing-card--featured { background: rgba(0,98,255,0.05); border-color: rgba(0,98,255,0.35); transform: translateY(-10px); box-shadow: 0 24px 72px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,98,255,0.2); }
+        .pricing-card:not(.pricing-card--featured):hover { border-color: rgba(255,255,255,0.18); transform: translateY(-4px); }
+        .tier-popular { display: inline-block; padding: 5px 14px; background: var(--blue); color: white; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 980px; margin-bottom: 20px; }
+        .tier-name { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 12px; }
+        .pricing-card--featured .tier-name { color: var(--cyan); }
+        .tier-price { font-size: clamp(36px, 4vw, 52px); font-weight: 800; letter-spacing: -0.04em; color: var(--white); line-height: 1; margin-bottom: 8px; }
+        .pricing-card--featured .tier-price { background: linear-gradient(135deg, var(--blue), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .tier-cadence { font-size: 14px; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+        .tier-desc { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.6; padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .tier-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 36px; }
+        .tier-features li { font-size: 14px; line-height: 1.4; display: flex; align-items: flex-start; gap: 10px; }
+        .tf-check { width: 18px; height: 18px; border-radius: 50%; background: rgba(40,201,64,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 10px; color: #28C940; font-weight: 700; }
+        .tf-star { width: 18px; height: 18px; border-radius: 50%; background: rgba(0,200,255,0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 10px; color: var(--cyan); }
+        .tf-text { color: rgba(255,255,255,0.7); }
+        .tf-bonus { color: var(--cyan-light); }
+        .btn-tier { width: 100%; display: flex; align-items: center; justify-content: center; padding: 15px; background: var(--blue); color: white; border-radius: 980px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.25s; text-decoration: none; border: none; box-shadow: 0 4px 20px rgba(0,98,255,0.3); }
+        .btn-tier:hover { background: var(--blue-hover); transform: translateY(-1px); box-shadow: 0 8px 32px rgba(0,98,255,0.45); }
+        .btn-tier-outline { width: 100%; display: flex; align-items: center; justify-content: center; padding: 15px; background: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.15); border-radius: 980px; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.25s; text-decoration: none; }
+        .btn-tier-outline:hover { border-color: rgba(255,255,255,0.4); color: white; background: rgba(255,255,255,0.05); }
+        .pricing-guarantee { display: flex; align-items: center; gap: 16px; padding: 22px 28px; background: rgba(40,201,64,0.05); border: 1px solid rgba(40,201,64,0.15); border-radius: 14px; max-width: 680px; margin: 0 auto; }
+        .pricing-guarantee span { font-size: 28px; flex-shrink: 0; }
+        .pricing-guarantee strong { color: #28C940; display: block; font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+        .pricing-guarantee p { font-size: 14px; color: rgba(255,255,255,0.38); line-height: 1.5; }
+        @media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; } .pricing-card--featured { transform: none; } }
+
+        /* ─── FAQ ─── */
+        .faq { background: var(--light-gray); }
+        .faq .eyebrow { color: #0080BB; }
+        .faq h2.section-title { color: var(--dark); text-align: center; }
+        .faq .section-sub { color: var(--gray); margin: 0 auto 48px; text-align: center; }
+        .faq-list { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+        .faq-item { background: var(--white); border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; overflow: hidden; }
+        .faq-q { padding: 22px 26px; display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; transition: background 0.2s; user-select: none; }
+        .faq-q:hover { background: rgba(0,0,0,0.015); }
+        .faq-q h4 { font-size: 16px; font-weight: 500; color: var(--dark); }
+        .faq-ico { width: 28px; height: 28px; border-radius: 50%; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; color: var(--gray); transition: all 0.3s; line-height: 1; }
+        .faq-item.open .faq-ico { background: var(--blue); color: white; transform: rotate(45deg); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+        .faq-item.open .faq-a { max-height: 300px; }
+        .faq-a p { padding: 0 26px 22px; font-size: 15px; color: var(--gray); line-height: 1.7; }
+
+        /* ─── FINAL CTA ─── */
+        .final-cta { background: var(--black); text-align: center; padding: 120px max(24px, 5vw); position: relative; overflow: hidden; }
+        .final-cta::before { content: ''; position: absolute; bottom: -100px; left: 50%; transform: translateX(-50%); width: 700px; height: 500px; background: radial-gradient(ellipse, rgba(0,98,255,0.1) 0%, transparent 65%); pointer-events: none; }
+        .final-cta h2 { font-size: clamp(36px, 5.5vw, 72px); font-weight: 800; letter-spacing: -0.04em; color: var(--white); margin-bottom: 22px; line-height: 1.08; }
+        .final-cta p { font-size: 19px; color: rgba(255,255,255,0.4); max-width: 480px; margin: 0 auto 44px; line-height: 1.55; }
+        .final-note { margin-top: 18px; font-size: 13px; color: rgba(255,255,255,0.2); }
+
+        /* ─── FOOTER ─── */
+        footer { background: var(--near-black); border-top: 0.5px solid rgba(255,255,255,0.07); padding: 44px max(24px, 5vw); }
+        .foot-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+        .foot-logo { font-size: 19px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); text-decoration: none; }
+        .foot-logo span { color: var(--cyan); }
+        .foot-links { display: flex; gap: 24px; flex-wrap: wrap; }
+        .foot-links a { font-size: 14px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+        .foot-links a:hover { color: var(--white); }
+        .foot-copy { font-size: 13px; color: rgba(255,255,255,0.2); }
+
+        /* ─── ANIMATIONS ─── */
+        .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .fade-up.in { opacity: 1; transform: translateY(0); }
+        .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+    <a href="#" class="nav-logo">REFIN<span>D</span></a>
+    <ul class="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact" class="nav-cta">Start a Project</a></li>
+    </ul>
+    <div class="nav-toggle"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+        <div class="hero-badge">Custom Web Design Studio</div>
+        <h1>Your Website Should Be<br>Your <em>Best Salesperson.</em></h1>
+        <p class="hero-sub">We build fully custom, conversion-focused websites from scratch — no templates, no shortcuts — for businesses ready to dominate their market and win from the very first click.</p>
+        <div class="hero-ctas">
+            <a href="#contact" class="btn-primary">
+                Book a Free Strategy Call
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#work" class="btn-ghost">See Our Work</a>
+        </div>
+    </div>
+    <div class="scroll-cue">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M12 19l-7-7M12 19l7-7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Scroll
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+    <div class="stats-inner">
+        <div class="fade-up">
+            <span class="stat-num"><span class="count" data-target="200">0</span>+</span>
+            <span class="stat-label">Businesses Transformed</span>
+        </div>
+        <div class="fade-up d1">
+            <span class="stat-num"><span class="count" data-target="49" data-decimal="true">0</span> ★</span>
+            <span class="stat-label">Average Client Rating</span>
+        </div>
+        <div class="fade-up d2">
+            <span class="stat-num">$<span class="count" data-target="42" data-decimal="true">0</span>M+</span>
+            <span class="stat-label">Revenue Generated for Clients</span>
+        </div>
+    </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+    <div class="inner">
+        <p class="eyebrow fade-up">The Problem</p>
+        <h2 class="section-title fade-up d1">Most websites silently<br>cost businesses clients.</h2>
+        <p class="section-sub fade-up d2">If your website isn't actively winning business, it's probably losing it. Here's what's quietly killing your conversion rate:</p>
+        <div class="problem-grid">
+            <div class="problem-card fade-up">
+                <div class="p-icon">🐢</div>
+                <h4>Agonizingly Slow</h4>
+                <p>53% of visitors abandon a site that takes more than 3 seconds to load. Every second of delay costs you real customers and Google rankings.</p>
+            </div>
+            <div class="problem-card fade-up d1">
+                <div class="p-icon">📐</div>
+                <h4>Looks Generic</h4>
+                <p>Template websites whisper "we don't invest in ourselves." Premium clients spot it instantly — and quietly choose your competitor who looks the part.</p>
+            </div>
+            <div class="problem-card fade-up d2">
+                <div class="p-icon">📉</div>
+                <h4>Doesn't Convert</h4>
+                <p>Beautiful design without a conversion strategy is just expensive decoration. Most websites have no clear path from visitor to booked client.</p>
+            </div>
+            <div class="problem-card fade-up d3">
+                <div class="p-icon">📱</div>
+                <h4>Broken on Mobile</h4>
+                <p>Over 60% of web traffic is mobile. If your site isn't pixel-perfect on every screen, you're turning away the majority of your potential customers.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY CUSTOM -->
+<section class="why-custom" id="why-custom">
+    <div class="inner">
+        <p class="eyebrow fade-up" style="text-align:center">Why Custom Matters</p>
+        <h2 class="section-title fade-up d1" style="text-align:center">A custom website isn't<br>an expense. It's your ROI.</h2>
+        <p class="fade-up d2" style="font-size:18px;color:rgba(255,255,255,0.42);text-align:center;max-width:560px;margin:0 auto 64px;line-height:1.58">A template forces your brand into someone else's box. A custom site is engineered from the ground up around your business, your audience, and your goals.</p>
+
+        <div class="custom-impact fade-up d1">
+            <div class="impact-stat">
+                <span class="impact-num">0.05s</span>
+                <span class="impact-label">Time it takes a visitor to form a first impression of your site</span>
+            </div>
+            <div class="impact-stat">
+                <span class="impact-num">38%</span>
+                <span class="impact-label">Of visitors leave immediately if a website looks poorly designed</span>
+            </div>
+            <div class="impact-stat">
+                <span class="impact-num">3×</span>
+                <span class="impact-label">Higher average conversion rate for custom sites vs. templates</span>
+            </div>
+            <div class="impact-stat">
+                <span class="impact-num">2×</span>
+                <span class="impact-label">The trust premium customers assign to professionally designed businesses</span>
+            </div>
+        </div>
+
+        <div class="custom-pillars">
+            <div class="pillar fade-up">
+                <div class="pillar-num">01</div>
+                <h4>Built Around Your Business</h4>
+                <p>Every layout, color, and headline is designed specifically for your audience and goals — not copied from a theme that thousands of other businesses already use. Your brand is unique. Your website should be too.</p>
+            </div>
+            <div class="pillar fade-up d1">
+                <div class="pillar-num">02</div>
+                <h4>Engineered to Convert</h4>
+                <p>We map your customer's exact journey from landing to contact. Every CTA, every section, every scroll trigger is placed with a single purpose — turning visitors into paying clients. That's a strategy templates simply can't deliver.</p>
+            </div>
+            <div class="pillar fade-up d2">
+                <div class="pillar-num">03</div>
+                <h4>Yours Forever</h4>
+                <p>No monthly platform subscriptions. No lock-in. No rent. You own every pixel of what we build. Your website is a business asset that compounds in value over time — not an ongoing expense you can never escape.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+    <div class="inner">
+        <p class="eyebrow fade-up">What We Build</p>
+        <h2 class="section-title fade-up d1">Every type of web presence,<br>built to perfection.</h2>
+        <p class="section-sub fade-up d2" style="color:rgba(255,255,255,0.42)">Whether you need to establish your brand, sell products, or capture leads — every project is 100% custom, built to convert, and built to last.</p>
+        <div class="services-grid">
+            <div class="svc-card fade-up">
+                <div class="svc-icon">🌐</div>
+                <h4>Business Websites</h4>
+                <p>Authoritative brand websites that instantly communicate your value. 5–15 pages, fully bespoke, built to convert visitors into inquiries and calls.</p>
+            </div>
+            <div class="svc-card fade-up d1">
+                <div class="svc-icon">🛒</div>
+                <h4>E-Commerce Stores</h4>
+                <p>High-converting online stores built on best-in-class platforms. From product page to checkout, every step is custom-designed to maximize revenue.</p>
+            </div>
+            <div class="svc-card fade-up d2">
+                <div class="svc-icon">🎯</div>
+                <h4>Landing Pages</h4>
+                <p>Laser-focused conversion pages for ads, launches, and campaigns. Custom-built around one goal — turning your traffic into customers.</p>
+            </div>
+            <div class="svc-card fade-up d3">
+                <div class="svc-icon">⚡</div>
+                <h4>Web Applications</h4>
+                <p>Custom-built web apps with beautiful, intuitive interfaces. We make complex tools feel effortlessly simple for the people who use them every day.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+    <div class="inner">
+        <p class="eyebrow fade-up">How It Works</p>
+        <h2 class="section-title fade-up d1">From idea to launch in<br>as little as 3 weeks.</h2>
+        <p class="section-sub fade-up d2">A clear, collaborative process with zero surprises. You'll always know exactly what's happening and what comes next.</p>
+        <div class="process-steps">
+            <div class="step fade-up">
+                <div class="step-num">1</div>
+                <h4>Strategy &amp; Discovery</h4>
+                <p>We deep-dive into your business, audience, competitors, and goals. This session alone changes how most clients think about their brand online — and it's free.</p>
+            </div>
+            <div class="step fade-up d1">
+                <div class="step-num">2</div>
+                <h4>Custom Design &amp; Build</h4>
+                <p>Our designers craft 3 original concepts for your brand — built from scratch, never from templates. You choose your direction, we build it with unlimited revisions until you love it.</p>
+            </div>
+            <div class="step fade-up d2">
+                <div class="step-num">3</div>
+                <h4>Launch &amp; Support</h4>
+                <p>We handle every technical detail of going live. Then we stay with you post-launch — monitoring, optimizing, and supporting your growth.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="work">
+    <div class="inner">
+        <p class="eyebrow fade-up">Our Work</p>
+        <h2 class="section-title fade-up d1">Websites people actually<br>stop and look at.</h2>
+        <p class="section-sub fade-up d2">Every project is built from scratch. No templates, no recycled designs — just original, premium work crafted for each client.</p>
+        <div class="portfolio-grid">
+            <div class="port-card fade-up">
+                <div class="browser">
+                    <div class="browser-bar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url-bar"></div></div>
+                    <div class="screen screen-ecom"></div>
+                </div>
+                <div class="port-info">
+                    <p class="port-tag">E-Commerce</p>
+                    <h4>Luxe Skincare Co.</h4>
+                    <p>340% increase in online sales within 60 days of launch</p>
+                </div>
+            </div>
+            <div class="port-card fade-up d1">
+                <div class="browser">
+                    <div class="browser-bar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url-bar"></div></div>
+                    <div class="screen screen-law"></div>
+                </div>
+                <div class="port-info">
+                    <p class="port-tag">Professional Services</p>
+                    <h4>Caldwell Law Group</h4>
+                    <p>From 2 to 28 qualified leads per month in 8 weeks</p>
+                </div>
+            </div>
+            <div class="port-card fade-up d2">
+                <div class="browser">
+                    <div class="browser-bar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url-bar"></div></div>
+                    <div class="screen screen-resto"></div>
+                </div>
+                <div class="port-info">
+                    <p class="port-tag">Hospitality</p>
+                    <h4>Ember &amp; Oak Restaurant</h4>
+                    <p>Fully booked reservations 3 weeks straight after launch</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+    <div class="inner">
+        <p class="eyebrow fade-up">Client Stories</p>
+        <h2 class="section-title fade-up d1">Don't take our word for it.</h2>
+        <p class="section-sub fade-up d2">We've helped businesses across dozens of industries turn their online presence into a genuine competitive advantage.</p>
+        <div class="testi-grid">
+            <div class="testi-card fade-up">
+                <div class="stars">★★★★★</div>
+                <p class="quote">"I was skeptical — I'd been burned by cheap designers twice before. Refind was completely different. The strategy call alone changed how I think about my business. The finished site is beyond anything I imagined."</p>
+                <div class="author">
+                    <div class="avatar" style="background:linear-gradient(135deg,#00C8FF,#45D8FF)">M</div>
+                    <div><p class="author-name">Marcus Webb</p><p class="author-role">Founder, Webb Financial Group</p></div>
+                </div>
+            </div>
+            <div class="testi-card fade-up d1">
+                <div class="stars">★★★★★</div>
+                <p class="quote">"Our conversion rate went from 0.8% to 4.2% after the new site launched. That's not marketing spend — that's just what happens when your website is actually custom-built to convert. The ROI was immediate."</p>
+                <div class="author">
+                    <div class="avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">S</div>
+                    <div><p class="author-name">Sarah Chen</p><p class="author-role">CEO, Purely Organic Foods</p></div>
+                </div>
+            </div>
+            <div class="testi-card fade-up d2">
+                <div class="stars">★★★★★</div>
+                <p class="quote">"Every other agency gave me a template with my logo on it. Refind built something that genuinely represents my brand. Clients tell me our website is what convinced them to call us first. It's working every day."</p>
+                <div class="author">
+                    <div class="avatar" style="background:linear-gradient(135deg,#0f9b58,#1dc76e)">J</div>
+                    <div><p class="author-name">James O'Brien</p><p class="author-role">Managing Partner, Horizon Architecture</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMPARE -->
+<section class="compare" id="compare">
+    <div class="inner">
+        <p class="eyebrow fade-up">Why Refind</p>
+        <h2 class="section-title fade-up d1">Not all websites are<br>created equal.</h2>
+        <p class="section-sub fade-up d2">See exactly how a custom Refind website stacks up against the alternatives most businesses settle for.</p>
+        <div class="fade-up d2" style="overflow-x:auto">
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="highlight">Refind</th>
+                    <th>Cheap Freelancer</th>
+                    <th>DIY Builder</th>
+                    <th>Large Agency</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>100% Custom Design</td><td class="highlight"><span class="tick">✓</span></td><td><span class="maybe">~</span></td><td><span class="cross">✗</span></td><td><span class="tick">✓</span></td></tr>
+                <tr><td>Conversion Strategy Built In</td><td class="highlight"><span class="tick">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="maybe">~</span></td></tr>
+                <tr><td>Unlimited Revisions</td><td class="highlight"><span class="tick">✓</span></td><td><span class="cross">✗</span></td><td><span class="tick">✓</span></td><td><span class="cross">✗</span></td></tr>
+                <tr><td>Speed &lt; 3s Guaranteed</td><td class="highlight"><span class="tick">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="maybe">~</span></td></tr>
+                <tr><td>30-Day Money-Back Guarantee</td><td class="highlight"><span class="tick">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+                <tr><td>Post-Launch Support</td><td class="highlight"><span class="tick">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="maybe">~</span></td></tr>
+                <tr><td>No Lock-In Contracts</td><td class="highlight"><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+    <div class="inner">
+        <div class="pricing-intro">
+            <p class="eyebrow fade-up">Transparent Pricing</p>
+            <h2 class="section-title fade-up d1">Three tiers. One standard:<br><em style="font-style:normal;background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">100% custom.</em></h2>
+            <p class="section-sub fade-up d2">Every tier is built from scratch — no templates, no page builders, no recycled code. Pick the package that fits where you are now and where you're headed.</p>
+        </div>
+
+        <div class="pricing-grid">
+
+            <!-- LAUNCH -->
+            <div class="pricing-card fade-up">
+                <div class="tier-name">Launch</div>
+                <div class="tier-price">$2,997</div>
+                <div class="tier-cadence">One-time investment</div>
+                <p class="tier-desc">For new businesses and solopreneurs ready to make a strong first impression and start winning clients online.</p>
+                <ul class="tier-features">
+                    <li><div class="tf-check">✓</div><span class="tf-text">3–5 Page Custom Website Design</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Mobile-First Responsive Development</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">1 Original Design Concept</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Basic SEO Setup &amp; Meta Tags</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Contact Form Integration</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Speed Optimization (&lt;3s guaranteed)</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">30-Day Post-Launch Support</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">30-Day Money-Back Guarantee</span></li>
+                    <li><div class="tf-star">★</div><span class="tf-bonus">Bonus: Domain Setup Guide ($200 value)</span></li>
+                </ul>
+                <a href="mailto:hello@refind.co" class="btn-tier-outline">Get Started →</a>
+            </div>
+
+            <!-- GROW (Featured) -->
+            <div class="pricing-card pricing-card--featured fade-up d1">
+                <div class="tier-popular">Most Popular</div>
+                <div class="tier-name">Grow</div>
+                <div class="tier-price">$4,997</div>
+                <div class="tier-cadence">One-time investment</div>
+                <p class="tier-desc">For established businesses ready to turn their website into their #1 revenue-generating asset.</p>
+                <ul class="tier-features">
+                    <li><div class="tf-check">✓</div><span class="tf-text">5–10 Page Custom Website Design</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Mobile-First Responsive Development</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">3 Original Design Concepts</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Full SEO Foundation &amp; Structured Data</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Google Analytics &amp; Search Console Setup</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">CRM &amp; Form Integration</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Unlimited Revisions Until 100% Satisfied</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">90-Day Post-Launch Support</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">30-Day Money-Back Guarantee</span></li>
+                    <li><div class="tf-star">★</div><span class="tf-bonus">Bonus: Copywriting Strategy Session ($800)</span></li>
+                    <li><div class="tf-star">★</div><span class="tf-bonus">Bonus: Competitor Analysis Report ($600)</span></li>
+                    <li><div class="tf-star">★</div><span class="tf-bonus">Bonus: Hosting Setup Consultation ($400)</span></li>
+                </ul>
+                <a href="mailto:hello@refind.co" class="btn-tier">Start a Project →</a>
+            </div>
+
+            <!-- DOMINATE -->
+            <div class="pricing-card fade-up d2">
+                <div class="tier-name">Dominate</div>
+                <div class="tier-price">$8,997</div>
+                <div class="tier-cadence">One-time investment</div>
+                <p class="tier-desc">For market leaders who demand a world-class digital presence and a website that works as hard as they do.</p>
+                <ul class="tier-features">
+                    <li><div class="tf-check">✓</div><span class="tf-text">10–20 Page Custom Website Design</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Everything in Grow, plus:</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">E-Commerce or Booking Integration</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Custom Animations &amp; Micro-interactions</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Priority 2-Week Build Timeline</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">6 Months Post-Launch Support</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Monthly Performance Reports</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">Dedicated Project Manager</span></li>
+                    <li><div class="tf-check">✓</div><span class="tf-text">30-Day Money-Back Guarantee</span></li>
+                    <li><div class="tf-star">★</div><span class="tf-bonus">Bonus: Full Copywriting Service ($1,400)</span></li>
+                    <li><div class="tf-star">★</div><span class="tf-bonus">Bonus: Brand Style Guide ($700)</span></li>
+                    <li><div class="tf-star">★</div><span class="tf-bonus">Bonus: Domain &amp; Hosting Full Setup ($400)</span></li>
+                </ul>
+                <a href="mailto:hello@refind.co" class="btn-tier-outline">Get Started →</a>
+            </div>
+
+        </div>
+
+        <div class="pricing-guarantee fade-up">
+            <span>🛡️</span>
+            <div>
+                <strong>30-Day Money-Back Guarantee on every tier.</strong>
+                <p>If you're not completely thrilled with your new website within 30 days of launch, we'll refund every dollar. No questions asked, no hard feelings — ever.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+    <div class="inner">
+        <p class="eyebrow" style="text-align:center">FAQ</p>
+        <h2 class="section-title fade-up" style="text-align:center">Questions, answered.</h2>
+        <p class="section-sub fade-up d1" style="text-align:center;margin:0 auto 48px">Everything you'd want to know before we speak.</p>
+        <div class="faq-list">
+            <div class="faq-item fade-up">
+                <div class="faq-q"><h4>Why custom-built instead of a template or page builder?</h4><div class="faq-ico">+</div></div>
+                <div class="faq-a"><p>Templates are built for everyone, which means they're optimized for no one. A custom site is engineered around your specific audience, your goals, and your brand — which is why custom sites consistently outperform templates on conversion rate, speed, and search rankings. You also own it outright with no monthly platform fees.</p></div>
+            </div>
+            <div class="faq-item fade-up d1">
+                <div class="faq-q"><h4>How long does a project take start to finish?</h4><div class="faq-ico">+</div></div>
+                <div class="faq-a"><p>Launch and Grow projects are typically completed in 2–4 weeks. Dominate projects with e-commerce or larger scope take 3–6 weeks. We prioritize quality but respect your time — we set clear milestones and hit them every time. Priority timelines are also available.</p></div>
+            </div>
+            <div class="faq-item fade-up d2">
+                <div class="faq-q"><h4>What do I need to have ready before we start?</h4><div class="faq-ico">+</div></div>
+                <div class="faq-a"><p>Very little. You'll need your brand assets (logo, colors if you have them) and a general sense of what you want the site to accomplish. We handle everything else — including helping you craft the right messaging with the copywriting consultation included in Grow and Dominate packages.</p></div>
+            </div>
+            <div class="faq-item fade-up d3">
+                <div class="faq-q"><h4>What if I'm not happy with the result?</h4><div class="faq-ico">+</div></div>
+                <div class="faq-a"><p>We offer unlimited revisions throughout the project — we don't stop until you're genuinely satisfied. And if you launch and still aren't happy within 30 days, our money-back guarantee is there. In practice, we've never needed it, because we don't sign off until you love what we've built together.</p></div>
+            </div>
+            <div class="faq-item fade-up d4">
+                <div class="faq-q"><h4>Which pricing tier is right for my business?</h4><div class="faq-ico">+</div></div>
+                <div class="faq-a"><p>Launch is ideal if you're a new business or solopreneur needing a strong foundation. Grow is the most popular choice for established businesses that want a full-featured site with conversion strategy built in. Dominate is for businesses that want the absolute best — more pages, deeper integrations, and dedicated support. Not sure? Book a free strategy call and we'll tell you exactly which fits.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="contact">
+    <div style="position:relative;z-index:1">
+        <p class="eyebrow fade-up" style="text-align:center;margin-bottom:20px">Ready?</p>
+        <h2 class="fade-up d1">Stop leaving revenue<br>on the table.</h2>
+        <p class="fade-up d2">Book a free 30-minute strategy call. We'll audit your current online presence, pinpoint exactly what's costing you clients, and show you what a fully custom website could do for your business. No pitch. No pressure. Just value.</p>
+        <div class="fade-up d3">
+            <a href="mailto:hello@refind.co" class="btn-primary" style="font-size:18px;padding:18px 40px">
+                Book Your Free Strategy Call
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </div>
+        <p class="final-note fade-up d4">Spots are limited to 5 new clients per month</p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="foot-inner">
+        <a href="#" class="foot-logo">REFIN<span>D</span></a>
+        <div class="foot-links">
+            <a href="#work">Work</a>
+            <a href="#services">Services</a>
+            <a href="#process">Process</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <p class="foot-copy">© 2026 Refind Studio. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        nav.style.background = window.scrollY > 80 ? 'rgba(0,0,0,0.92)' : 'rgba(0,0,0,0.72)';
+    });
+
+    function animateCount(el) {
+        const target = parseFloat(el.dataset.target);
+        const isDecimal = el.dataset.decimal === 'true';
+        const duration = 1600;
+        let start = null;
+        const step = ts => {
+            if (!start) start = ts;
+            const p = Math.min((ts - start) / duration, 1);
+            const val = (1 - Math.pow(1 - p, 3)) * target;
+            el.textContent = isDecimal ? (val / 10).toFixed(1) : Math.floor(val);
+            if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    }
+    const statObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); statObserver.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.count').forEach(el => statObserver.observe(el));
+
+    document.querySelectorAll('.faq-q').forEach(q => {
+        q.addEventListener('click', () => {
+            const item = q.parentElement;
+            const open = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!open) item.classList.add('open');
+        });
+    });
+
+
+    document.querySelector('.nav-toggle').addEventListener('click', () => {
+        const links = document.querySelector('.nav-links');
+        if (links.style.display === 'flex') {
+            links.style.display = 'none';
+        } else {
+            links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;background:rgba(0,0,0,0.96);padding:24px;gap:20px;border-bottom:0.5px solid rgba(255,255,255,0.1)';
+        }
+    });
+</script>
+</body>
+</html>
