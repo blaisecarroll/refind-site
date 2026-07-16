@@ -249,6 +249,27 @@
         .foot-links a:hover { color: var(--white); }
         .foot-copy { font-size: 13px; color: rgba(255,255,255,0.2); }
 
+        /* ─── PORTFOLIO MODAL ─── */
+        .port-card { cursor: pointer; }
+        .preview-overlay { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); align-items: center; justify-content: center; padding: 24px; }
+        .preview-overlay.open { display: flex; animation: overlayIn 0.2s ease; }
+        @keyframes overlayIn { from { opacity:0; } to { opacity:1; } }
+        .preview-modal-box { background: #111; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; width: 100%; max-width: 740px; overflow: hidden; animation: mIn 0.32s cubic-bezier(0.34,1.25,0.64,1); }
+        @keyframes mIn { from { opacity:0; transform:scale(0.9) translateY(24px); } to { opacity:1; transform:scale(1) translateY(0); } }
+        .modal-topbar { display: flex; align-items: center; gap: 6px; padding: 13px 18px; background: #1a1a1a; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .modal-topbar .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .modal-url-pill { flex: 1; height: 22px; background: rgba(255,255,255,0.06); border-radius: 6px; margin: 0 10px; display: flex; align-items: center; padding: 0 12px; overflow: hidden; }
+        .modal-url-pill span { font-size: 11px; color: rgba(255,255,255,0.3); font-family: monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .modal-close-btn { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.07); border: none; color: rgba(255,255,255,0.55); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; line-height: 1; }
+        .modal-close-btn:hover { background: rgba(255,255,255,0.16); color: white; }
+        .modal-site-preview { height: 300px; overflow: hidden; position: relative; }
+        .modal-footer { padding: 22px 26px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.06); }
+        .modal-meta .port-tag { margin-bottom: 5px; }
+        .modal-meta h4 { font-size: 20px; font-weight: 700; color: white; margin-bottom: 6px; }
+        .modal-meta p { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.55; margin: 0; max-width: 380px; }
+        .modal-visit-btn { padding: 12px 22px; background: var(--blue); color: white; border-radius: 980px; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: all 0.22s; flex-shrink: 0; }
+        .modal-visit-btn:hover { background: var(--blue-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,98,255,0.4); }
+
         /* ─── ANIMATIONS ─── */
         .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .fade-up.in { opacity: 1; transform: translateY(0); }
@@ -456,39 +477,87 @@
         <h2 class="section-title fade-up d1">Websites people actually<br>stop and look at.</h2>
         <p class="section-sub fade-up d2">Every project is built from scratch. No templates, no recycled designs — just original, premium work crafted for each client.</p>
         <div class="portfolio-grid">
-            <div class="port-card fade-up">
+
+            <!-- CARRO -->
+            <div class="port-card fade-up" onclick="openPreview('carro')">
                 <div class="browser">
                     <div class="browser-bar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url-bar"></div></div>
-                    <div class="screen screen-ecom"></div>
+                    <div class="screen" style="background:#0a0a0a;display:flex;flex-direction:column;overflow:hidden">
+                        <div style="background:#111;height:32px;display:flex;align-items:center;padding:0 14px;justify-content:space-between;flex-shrink:0">
+                            <span style="font-weight:800;letter-spacing:4px;font-size:11px;color:#fff">CARRO</span>
+                            <div style="display:flex;gap:10px"><span style="font-size:9px;color:rgba(255,255,255,.38)">Shop</span><span style="font-size:9px;color:rgba(255,255,255,.38)">About</span></div>
+                        </div>
+                        <div style="padding:20px 16px;flex:1">
+                            <div style="font-size:8px;letter-spacing:3px;color:rgba(255,255,255,.32);margin-bottom:8px">PREMIUM GYM BAG</div>
+                            <div style="font-size:18px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:8px">The Original.<br>Built Different.</div>
+                            <div style="font-size:9px;color:rgba(255,255,255,.3);margin-bottom:14px">Waterproof · Anti-odor · Ltd. 200</div>
+                            <div style="background:#fff;color:#000;font-weight:700;font-size:9px;display:inline-block;padding:7px 16px;border-radius:3px">Shop Now — $299.99</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="port-info">
-                    <p class="port-tag">E-Commerce</p>
-                    <h4>Luxe Skincare Co.</h4>
-                    <p>340% increase in online sales within 60 days of launch</p>
+                <div class="port-info" style="display:flex;align-items:center;justify-content:space-between">
+                    <div>
+                        <p class="port-tag">E-Commerce</p>
+                        <h4>CARRO</h4>
+                        <p>Luxury gym bag brand with premium conversion-focused product pages</p>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;opacity:.35"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
             </div>
-            <div class="port-card fade-up d1">
+
+            <!-- PRODUCERPATH -->
+            <div class="port-card fade-up d1" onclick="openPreview('pp')">
                 <div class="browser">
                     <div class="browser-bar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url-bar"></div></div>
-                    <div class="screen screen-law"></div>
+                    <div class="screen" style="background:linear-gradient(160deg,#10141b,#1d2735);display:flex;flex-direction:column;overflow:hidden">
+                        <div style="background:rgba(0,0,0,.5);height:32px;display:flex;align-items:center;padding:0 14px;flex-shrink:0">
+                            <span style="font-weight:700;font-size:11px;color:#fff">ProducerPath</span>
+                        </div>
+                        <div style="padding:16px 16px;flex:1;text-align:center">
+                            <div style="display:inline-block;background:rgba(255,255,255,.1);border-radius:20px;padding:4px 10px;font-size:8px;letter-spacing:1.5px;color:#fff;margin-bottom:10px">FREE LEAD EVENT CALENDAR</div>
+                            <div style="font-size:14px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">How to Get 200+<br>Leads a Month</div>
+                            <div style="font-size:8px;color:rgba(255,255,255,.4);margin-bottom:12px">Without cold calling or internet leads</div>
+                            <div style="background:linear-gradient(180deg,#F0C161,#CC8A1E);color:#fff;font-weight:700;font-size:8px;display:inline-block;padding:7px 14px;border-radius:6px">Send Me My Free Calendar →</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="port-info">
-                    <p class="port-tag">Professional Services</p>
-                    <h4>Caldwell Law Group</h4>
-                    <p>From 2 to 28 qualified leads per month in 8 weeks</p>
+                <div class="port-info" style="display:flex;align-items:center;justify-content:space-between">
+                    <div>
+                        <p class="port-tag">Sales Funnel</p>
+                        <h4>ProducerPath</h4>
+                        <p>13-page insurance coaching funnel from lead capture to Elite application</p>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;opacity:.35"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
             </div>
-            <div class="port-card fade-up d2">
+
+            <!-- CASCADE ROOFING -->
+            <div class="port-card fade-up d2" onclick="openPreview('cr')">
                 <div class="browser">
                     <div class="browser-bar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url-bar"></div></div>
-                    <div class="screen screen-resto"></div>
+                    <div class="screen" style="background:linear-gradient(150deg,#08193f,#122f61);display:flex;flex-direction:column;overflow:hidden">
+                        <div style="background:rgba(13,37,82,.95);height:32px;display:flex;align-items:center;padding:0 14px;justify-content:space-between;flex-shrink:0">
+                            <span style="font-weight:700;font-size:10px;color:#fff">Cascade Roofing</span>
+                            <span style="font-size:9px;color:#f3c01d;font-weight:700">801-831-4428</span>
+                        </div>
+                        <div style="padding:16px 16px;flex:1">
+                            <div style="font-size:7px;letter-spacing:2.5px;color:#f3c01d;margin-bottom:8px;font-weight:700">UTAH'S #1 ROOFER SINCE 1984</div>
+                            <div style="font-size:15px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">Your Roof.<br>Our Reputation.</div>
+                            <div style="font-size:9px;color:#f5a623;margin-bottom:12px">★★★★★ &nbsp;<span style="color:rgba(255,255,255,.4)">4.9/5 · 380+ reviews</span></div>
+                            <div style="background:#1c58b4;color:#fff;font-weight:700;font-size:9px;display:inline-block;padding:7px 14px;border-radius:6px">Get a Free Quote →</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="port-info">
-                    <p class="port-tag">Hospitality</p>
-                    <h4>Ember &amp; Oak Restaurant</h4>
-                    <p>Fully booked reservations 3 weeks straight after launch</p>
+                <div class="port-info" style="display:flex;align-items:center;justify-content:space-between">
+                    <div>
+                        <p class="port-tag">Local Business</p>
+                        <h4>Cascade Roofing</h4>
+                        <p>Trust-first site for Utah County's #1 roofer — SEO-optimized lead capture</p>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;opacity:.35"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -716,6 +785,31 @@
     </div>
 </footer>
 
+<!-- PREVIEW MODAL -->
+<div class="preview-overlay" id="previewOverlay" onclick="handleOverlayClick(event)">
+    <div class="preview-modal-box" id="previewModalBox">
+        <div class="modal-topbar">
+            <div class="dot" style="background:#FF5F57"></div>
+            <div class="dot" style="background:#FFBD2E"></div>
+            <div class="dot" style="background:#28C940"></div>
+            <div class="modal-url-pill"><span id="modalUrlText"></span></div>
+            <button class="modal-close-btn" onclick="closePreview()">✕</button>
+        </div>
+        <div class="modal-site-preview" id="modalSitePreview"></div>
+        <div class="modal-footer">
+            <div class="modal-meta">
+                <p class="port-tag" id="modalTag"></p>
+                <h4 id="modalName"></h4>
+                <p id="modalDesc"></p>
+            </div>
+            <a id="modalLink" class="modal-visit-btn" href="#" target="_blank" rel="noopener">
+                Visit Live Site
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </div>
+    </div>
+</div>
+
 <script>
     const observer = new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
@@ -764,6 +858,99 @@
             links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;background:rgba(0,0,0,0.96);padding:24px;gap:20px;border-bottom:0.5px solid rgba(255,255,255,0.1)';
         }
     });
+
+    const sites = {
+        carro: {
+            url: 'carrofit.com',
+            link: 'https://carrofit.com',
+            tag: 'E-Commerce',
+            name: 'CARRO',
+            desc: 'Luxury gym bag brand site — premium dark aesthetic, conversion-optimized product pages, and a $299 offer built to convert serious buyers.',
+            preview: `<div style="background:#0a0a0a;height:100%;display:flex;flex-direction:column">
+                <div style="background:#111;height:44px;display:flex;align-items:center;padding:0 22px;justify-content:space-between;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.06)">
+                    <span style="font-weight:800;letter-spacing:5px;font-size:14px;color:#fff">CARRO</span>
+                    <div style="display:flex;gap:22px"><span style="font-size:11px;color:rgba(255,255,255,.42)">Shop</span><span style="font-size:11px;color:rgba(255,255,255,.42)">About</span><span style="font-size:11px;color:rgba(255,255,255,.42)">Cart (0)</span></div>
+                </div>
+                <div style="padding:36px 32px;flex:1">
+                    <div style="font-size:10px;letter-spacing:4px;color:rgba(255,255,255,.3);margin-bottom:14px;font-weight:600">PREMIUM GYM BAG</div>
+                    <div style="font-size:36px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:14px;letter-spacing:-1px">The Original.<br>Built Different.</div>
+                    <div style="font-size:13px;color:rgba(255,255,255,.36);margin-bottom:26px;line-height:1.5">Waterproof TPU nylon &nbsp;·&nbsp; Anti-odor lining &nbsp;·&nbsp; Limited to 200 units</div>
+                    <div style="display:flex;align-items:center;gap:14px">
+                        <div style="background:#fff;color:#000;font-weight:700;font-size:12px;display:inline-block;padding:12px 28px;border-radius:4px;letter-spacing:.3px">Shop Now — $299.99</div>
+                        <div style="font-size:12px;color:rgba(255,255,255,.3)">Only 23 left</div>
+                    </div>
+                </div>
+            </div>`
+        },
+        pp: {
+            url: 'producer-path-one.vercel.app',
+            link: 'https://producer-path-one.vercel.app',
+            tag: 'Sales Funnel',
+            name: 'ProducerPath',
+            desc: '13-page end-to-end sales funnel for insurance agents — from free lead magnet through $997 system, group coaching, and Elite 1-on-1 application.',
+            preview: `<div style="background:linear-gradient(160deg,#10141b,#1d2735);height:100%;display:flex;flex-direction:column">
+                <div style="background:rgba(0,0,0,.55);height:44px;display:flex;align-items:center;padding:0 22px;justify-content:space-between;flex-shrink:0">
+                    <span style="font-weight:700;font-size:13px;color:#fff">ProducerPath</span>
+                    <div style="display:flex;gap:18px"><span style="font-size:11px;color:rgba(255,255,255,.4)">System</span><span style="font-size:11px;color:rgba(255,255,255,.4)">Coaching</span></div>
+                </div>
+                <div style="padding:32px 28px;flex:1;text-align:center">
+                    <div style="display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:30px;padding:6px 16px;font-size:10px;letter-spacing:2px;color:#fff;margin-bottom:18px;font-weight:600">FREE LEAD EVENT CALENDAR</div>
+                    <div style="font-size:26px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px;letter-spacing:-.5px">How to Get 200+ Leads a Month<br><span style="color:#F0C161">Without Cold Calling</span></div>
+                    <div style="font-size:12px;color:rgba(255,255,255,.42);margin-bottom:24px">Tell us your city — we'll send your ranked event calendar</div>
+                    <div style="background:linear-gradient(180deg,#F0C161,#CC8A1E);color:#fff;font-weight:800;font-size:12px;display:inline-block;padding:12px 28px;border-radius:10px;box-shadow:0 8px 24px rgba(204,138,30,.4)">Send Me My Free Event Calendar →</div>
+                </div>
+            </div>`
+        },
+        cr: {
+            url: 'cascade-roofing.vercel.app',
+            link: 'https://cascade-roofing.vercel.app',
+            tag: 'Local Business',
+            name: 'Cascade Roofing',
+            desc: 'Trust-first website for Utah County\'s #1 roofer. SEO-optimized content, 380+ review social proof, click-to-call lead capture, and a GAF-certified badge system.',
+            preview: `<div style="background:linear-gradient(150deg,#08193f,#122f61);height:100%;display:flex;flex-direction:column">
+                <div style="background:rgba(13,37,82,.97);height:44px;display:flex;align-items:center;padding:0 22px;justify-content:space-between;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.07)">
+                    <span style="font-weight:700;font-size:12px;color:#fff">🏠 Cascade Roofing Services</span>
+                    <div style="display:flex;align-items:center;gap:16px"><div style="display:flex;gap:14px"><span style="font-size:10px;color:rgba(255,255,255,.55)">Services</span><span style="font-size:10px;color:rgba(255,255,255,.55)">Reviews</span><span style="font-size:10px;color:rgba(255,255,255,.55)">About</span></div><span style="font-size:10px;color:#f3c01d;font-weight:700">801-831-4428</span></div>
+                </div>
+                <div style="padding:28px 28px;flex:1">
+                    <div style="font-size:9px;letter-spacing:3px;color:#f3c01d;margin-bottom:12px;font-weight:700">UTAH COUNTY'S #1 ROOFER SINCE 1984</div>
+                    <div style="font-size:30px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.5px">Your Roof.<br>Our Reputation.</div>
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px">
+                        <span style="font-size:13px;color:#f5a623;letter-spacing:2px">★★★★★</span>
+                        <span style="font-size:11px;color:rgba(255,255,255,.42)">4.9/5 &nbsp;·&nbsp; 380+ reviews &nbsp;·&nbsp; Best of 2024</span>
+                    </div>
+                    <div style="display:flex;gap:10px">
+                        <div style="background:#1c58b4;color:#fff;font-weight:700;font-size:11px;display:inline-block;padding:11px 22px;border-radius:8px">Get a Free Quote →</div>
+                        <div style="background:transparent;border:1.5px solid rgba(255,255,255,.3);color:#fff;font-weight:600;font-size:11px;display:inline-block;padding:11px 22px;border-radius:8px">Our Services</div>
+                    </div>
+                </div>
+            </div>`
+        }
+    };
+
+    function openPreview(key) {
+        const s = sites[key];
+        document.getElementById('modalUrlText').textContent = s.url;
+        document.getElementById('modalSitePreview').innerHTML = s.preview;
+        document.getElementById('modalTag').textContent = s.tag;
+        document.getElementById('modalName').textContent = s.name;
+        document.getElementById('modalDesc').textContent = s.desc;
+        document.getElementById('modalLink').href = s.link;
+        const overlay = document.getElementById('previewOverlay');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePreview() {
+        document.getElementById('previewOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e) {
+        if (e.target === document.getElementById('previewOverlay')) closePreview();
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePreview(); });
 </script>
 </body>
 </html>
